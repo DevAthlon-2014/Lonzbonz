@@ -3,7 +3,9 @@ package de.lonzbonz.DevAthlon.listeners;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -24,9 +26,24 @@ public class playerJoin implements Listener {
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		final Player p = e.getPlayer();
+		
+		p.setGameMode(GameMode.ADVENTURE);
+		p.setAllowFlight(false);
+		p.setFlying(false);
+		p.setHealth(20);
+		p.setFoodLevel(20);
+		p.setNoDamageTicks(Integer.MAX_VALUE);
+		p.setFireTicks(0);
+		chatAnimation cA = new chatAnimation(plugin);
+		cA.showInChat(p, "");
+		Location loc = Bukkit.getWorld(plugin.worldName).getSpawnLocation();
+		loc = loc.add(0, 10, 0);
+		p.teleport(loc);
+		e.setJoinMessage("§e§n" + p.getName() + "§r §ehat den Server betreten");
 		
 		if(!plugin.joinRun.containsKey(p.getName())) {
 			plugin.joinRun.put(p.getName(), new BukkitRunnable() {

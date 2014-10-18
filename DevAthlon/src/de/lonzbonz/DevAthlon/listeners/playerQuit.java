@@ -25,9 +25,9 @@ public class playerQuit implements Listener {
 			plugin.joinRun.remove(p.getName());
 		}
 		
-		if(plugin.run.containsKey(p.getName())) {
-			plugin.run.get(p.getName()).cancel();
-			plugin.run.remove(p.getName());
+		if(plugin.chatRun.containsKey(p.getName())) {
+			plugin.chatRun.get(p.getName()).cancel();
+			plugin.chatRun.remove(p.getName());
 		}
 	}
 
