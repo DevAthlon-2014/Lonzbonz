@@ -15,8 +15,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import de.lonzbonz.DevAthlon.main.chatAnimation;
-import de.lonzbonz.DevAthlon.main.fireworkManager;
 import de.lonzbonz.DevAthlon.main.main;
+import de.lonzbonz.DevAthlon.main.playerItems;
 import de.lonzbonz.DevAthlon.main.randomGetter;
 
 public class playerJoin implements Listener {
@@ -41,6 +41,9 @@ public class playerJoin implements Listener {
 		p.setNoDamageTicks(Integer.MAX_VALUE);
 		p.setFireTicks(0);
 		
+		playerItems pI = new playerItems();
+		pI.setJoinItems(p);
+		
 		chatAnimation cA = new chatAnimation(plugin);
 		cA.showInChat(p, "");
 		
@@ -51,8 +54,10 @@ public class playerJoin implements Listener {
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			@Override
 			public void run() {
-				fireworkManager fM = new fireworkManager();
-				fM.startJoinFirework(p);
+				p.setVelocity(p.getVelocity().setY(1D));
+				for(int i = 0; i < 25; i++) {
+					p.getWorld().playEffect(p.getLocation(), Effect.SMOKE, 3);
+				}
 			}
 		}, 20);
 		
