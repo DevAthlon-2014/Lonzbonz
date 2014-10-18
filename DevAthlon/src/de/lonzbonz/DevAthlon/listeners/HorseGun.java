@@ -75,6 +75,7 @@ public class HorseGun implements Listener {
 							horse.getWorld().playEffect(horse.getLocation(), Effect.SMOKE, 3);
 						}
 						
+						
 						for(Entity ent : horse.getNearbyEntities(2, 2, 2)) {
 							if(ent.getType() == EntityType.GHAST) {
 								
