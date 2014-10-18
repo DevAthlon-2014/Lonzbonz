@@ -21,7 +21,6 @@ public class chatListener implements Listener {
 		e.setCancelled(true);
 		
 		randomGetter rG = new randomGetter();
-		Bukkit.broadcastMessage("§7[§b" + plugin.points.get(e.getPlayer().getName()) + "§7] " 
-		+ rG.setStringToRandomColor(e.getPlayer().getName()) + " §8» §r" + e.getMessage());
+		Bukkit.broadcastMessage(rG.setStringToRandomColor(e.getPlayer().getName()) + " §8» §r" + e.getMessage());
 	}
 }

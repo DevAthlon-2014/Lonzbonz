@@ -6,6 +6,11 @@ import org.bukkit.WorldCreator;
 
 public class worldManager {
 
+	/**
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
+	
 	private main plugin;
 	public String world;
 	
@@ -14,6 +19,10 @@ public class worldManager {
 		this.plugin = plugin;
 	}
 	
+	/**
+	 * 
+	 * @return false if there was a error or anything else
+	 */
 	public boolean generateWorld() {
 		try {
 			WorldCreator wc = new WorldCreator(world);
@@ -29,6 +38,9 @@ public class worldManager {
 		return world;
 	}
 	
+	/**
+	 * starts a timer to set the weather
+	 */
 	public void startGoodWeather() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			@Override

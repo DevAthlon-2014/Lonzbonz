@@ -7,8 +7,11 @@ import java.util.Random;
 public class randomGetter {
 
 	/**
-	 * 
-	 * To set a String in a random color
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
+
+	/**
 	 * 
 	 * @param name - to set in a random color
 	 * @return the colored String
@@ -25,6 +28,10 @@ public class randomGetter {
 		
 	}
 	
+	/**
+	 * 
+	 * @return a random color code
+	 */
 	public String getRandomColor() {
 		List<String> colors = new ArrayList<>();
 		colors.add("§1");

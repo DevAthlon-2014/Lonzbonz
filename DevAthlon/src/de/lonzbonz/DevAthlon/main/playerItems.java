@@ -8,6 +8,17 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class playerItems {
 
+	/**
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
+
+	/**
+	 * 
+	 * To set the join Items
+	 * 
+	 * @param p - the player who should get the items
+	 */
 	public void setJoinItems(Player p) {
 		
 		ItemStack item = new ItemStack(Material.GOLD_SPADE);

@@ -74,6 +74,41 @@ public class GameStart {
 					cA.display(players, plugin.prefix + "§c§lDas Spiel ist vorbei!");
 				}
 				
+				String winner = "";
+				int max = 0;
+				for(int i : plugin.points.values()) {
+					if(i > max) {
+						max = i;
+					}
+				}
+				
+				for(String all : plugin.points.keySet()) {
+					if(plugin.points.get(all) == max) {
+						winner = all;
+					}
+				}
+				
+				for(Player players : Bukkit.getOnlinePlayers()) {
+					chatAnimation cA = new chatAnimation(plugin);
+					List<String> list = new ArrayList<>();
+					list.add("");
+					list.add("§6§lJetzt wird's spannend!");
+					list.add("§b§lGewonnen hat...");
+					randomGetter rG = new randomGetter();
+					list.add("        " + rG.setStringToRandomColor(winner));
+					list.add("§a§lGlückwunsch! <3");
+					
+					cA.displayWithDelay(players, list, 3);
+				}
+				
+				
+				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+					@Override
+					public void run() {
+						Bukkit.shutdown();
+					}
+				}, 20*20);
+				
 			}
 		}, 20*60*3);
 	}

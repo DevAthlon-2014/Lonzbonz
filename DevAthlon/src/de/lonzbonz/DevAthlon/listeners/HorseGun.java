@@ -42,10 +42,10 @@ public class HorseGun implements Listener {
 		final Player p = e.getPlayer();
 		
 		if(!(plugin.state == GameState.RUNNING)) return;
-		
-		if(!cooldown.contains(p.getName())) {
-			cooldown.add(p.getName());
-			if(e.getMaterial() == Material.GOLD_SPADE) {
+
+		if(e.getMaterial() == Material.GOLD_SPADE) {
+			if(!cooldown.contains(p.getName())) {
+				cooldown.add(p.getName());
 				e.setCancelled(true);
 				
 				p.getWorld().playSound(p.getLocation(), Sound.EXPLODE, 3, 3);
@@ -66,14 +66,17 @@ public class HorseGun implements Listener {
 					public void run() {
 						for(Entity ent : horse.getNearbyEntities(3, 3, 3)) {
 							if(ent.getType() == EntityType.GHAST) {
-								ent.remove();
+								
 								Ghast ghast = (Ghast) ent;
+								ghast.setHealth(0D);
 								plugin.ghasts.remove(ghast);
+								ghast.getWorld().strikeLightningEffect(ghast.getLocation());
 								
 								p.sendMessage(plugin.prefix + "§a§l+ 1 Treffer");
 								plugin.points.put(p.getName(), plugin.points.get(p.getName())+1);
 								p.getWorld().playSound(p.getLocation(), Sound.FIREWORK_LARGE_BLAST2, 3, 3);
 								p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20*1, 3));
+								
 							}
 						}
 					}
@@ -82,10 +85,14 @@ public class HorseGun implements Listener {
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					@Override
 					public void run() {
-						
+						if(horse != null) {
+							horse.remove();
+						}
 					}
 				}, 20*4);
 				
+			} else {
+				p.sendMessage(plugin.prefix + "§cLade §6Pferde-Flare §cnach!");
 			}
 			
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -94,8 +101,6 @@ public class HorseGun implements Listener {
 					cooldown.remove(p.getName());
 				}
 			}, 20);
-		} else {
-			p.sendMessage(plugin.prefix + "§cLade §6Pferde-Flare §cnach!");
 		}
 	}
 	
