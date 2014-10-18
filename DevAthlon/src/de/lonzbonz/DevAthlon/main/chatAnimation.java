@@ -3,6 +3,7 @@ package de.lonzbonz.DevAthlon.main;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -42,6 +43,7 @@ public class chatAnimation {
 		p.sendMessage("");
 		
 		p.playSound(p.getLocation(), Sound.BURP, 3, 3);
+		p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, 3);
 	}
 	
 	/**

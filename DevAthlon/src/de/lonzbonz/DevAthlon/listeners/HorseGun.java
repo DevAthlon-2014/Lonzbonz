@@ -15,6 +15,7 @@ import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -42,6 +43,7 @@ public class HorseGun implements Listener {
 	private HashMap<String, Integer> actual = new HashMap<>();
 	private HashMap<Entity, BukkitRunnable> entRun = new HashMap<>();
 	int max = 20;
+	public List<String> zoom = new ArrayList<>();
 	
 	@EventHandler
 	public void onShoot(PlayerInteractEvent e) {
@@ -49,6 +51,20 @@ public class HorseGun implements Listener {
 		
 		if(!(plugin.state == GameState.RUNNING)) return;
 
+		if(e.getAction() == Action.LEFT_CLICK_AIR | e.getAction() == Action.LEFT_CLICK_BLOCK) {
+			p.playSound(p.getLocation(), Sound.IRONGOLEM_HIT, 3, 3);
+			if(zoom.contains(p.getName())) {
+				zoom.remove(p.getName());
+				p.removePotionEffect(PotionEffectType.SLOW);
+				
+			} else {
+				zoom.add(p.getName());
+				p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 3));
+				
+			}
+			return;
+		}
+		
 		if(e.getMaterial() == Material.GOLD_SPADE) {
 			if(!cooldown.contains(p.getName())) {
 				cooldown.add(p.getName());
@@ -70,11 +86,6 @@ public class HorseGun implements Listener {
 				entRun.put(horse, new BukkitRunnable() {
 					@Override
 					public void run() {
-						
-						for(int i = 0; i < 30; i++) {
-							horse.getWorld().playEffect(horse.getLocation(), Effect.SMOKE, 3);
-						}
-						
 						
 						for(Entity ent : horse.getNearbyEntities(2, 2, 2)) {
 							if(ent.getType() == EntityType.GHAST) {

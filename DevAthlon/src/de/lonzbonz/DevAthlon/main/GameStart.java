@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
+import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Ghast;
+import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffectType;
 
 public class GameStart {
 
@@ -56,6 +62,18 @@ public class GameStart {
 				MobSpawner MS = new MobSpawner(plugin);
 				MS.startSpawning();
 				startIngameTimer();
+				
+				for(Player players : Bukkit.getOnlinePlayers()) {
+					@SuppressWarnings("deprecation")
+					Pig p = (Pig) players.getWorld().spawnCreature(players.getLocation(), EntityType.PIG);
+					p.setSaddle(true);
+					players.getWorld().playEffect(players.getLocation(), Effect.POTION_BREAK, 3);
+					players.playSound(players.getLocation(), Sound.ITEM_BREAK, 3, 3);
+					randomGetter rG = new randomGetter();
+					p.setCustomName(rG.setStringToRandomColor("Hansi"));
+					p.setCustomNameVisible(true);
+					p.setPassenger(players);
+				}
 			}
 		}, 20*30);
 		
@@ -76,9 +94,17 @@ public class GameStart {
 					g.remove();
 				}
 				
+				for(Entity ent : Bukkit.getWorld(plugin.worldName).getEntities()) {
+					if(ent instanceof Pig) {
+						ent.remove();
+					}
+				}
+				
 				for(Player players : Bukkit.getOnlinePlayers()) {
 					chatAnimation cA = new chatAnimation(plugin);
 					cA.display(players, plugin.prefix + "§c§lDas Spiel ist vorbei!");
+					plugin.state = GameState.RESTARTING;
+					players.removePotionEffect(PotionEffectType.SLOW);
 				}
 				
 				String winner = "";
@@ -117,7 +143,7 @@ public class GameStart {
 					public void run() {
 						Bukkit.shutdown();
 					}
-				}, 20*20);
+				}, 20*23);
 				
 				
 			}
