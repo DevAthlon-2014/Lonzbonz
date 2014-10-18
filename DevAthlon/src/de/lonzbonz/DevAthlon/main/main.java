@@ -35,6 +35,7 @@ public class main extends JavaPlugin {
 	
 	//Ressources
 	public HashMap<String, BukkitRunnable> joinRun = new HashMap<>();
+	public HashMap<String, BukkitRunnable> run = new HashMap<>();
 	
 	
 

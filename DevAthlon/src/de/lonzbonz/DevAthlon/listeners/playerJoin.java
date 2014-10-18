@@ -1,5 +1,8 @@
 package de.lonzbonz.DevAthlon.listeners;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -46,7 +49,13 @@ public class playerJoin implements Listener {
 		p.getWorld().playSound(loc, Sound.FIREWORK_BLAST2, 3, 3);
 		
 		chatAnimation cA = new chatAnimation(plugin);
-		cA.showInChat(p, "§3§lLasset");
+		List<String> list = new ArrayList<>();
+		list.add("§3§lLasset");
+		list.add("§4§ldie");
+		list.add("§5§lSpiele");
+		list.add("§2§lbeginnen!");
+		cA.showInChatWithDelay(p, list, 1);
+
 		
 		
 	}
