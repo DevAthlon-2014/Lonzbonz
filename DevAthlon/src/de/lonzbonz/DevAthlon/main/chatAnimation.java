@@ -17,7 +17,7 @@ public class chatAnimation {
 	//Ressources
 	int i;
 	
-	public void showInChat(Player p, String message) {
+	public void display(Player p, String message) {
 		
 		p.sendMessage("");
 		p.sendMessage("");
@@ -31,14 +31,14 @@ public class chatAnimation {
 		p.sendMessage("");
 	}
 	
-	public void showInChatWithDelay(final Player p, final List<String> message, int delayinSec) {
+	public void displayWithDelay(final Player p, final List<String> message, int delayinSec) {
 		i = 0;
 		if(!plugin.chatRun.containsKey(p.getName())) {
 			plugin.chatRun.put(p.getName(), new BukkitRunnable() {
 				@Override
 				public void run() {
 					String msg = message.get(i);
-					showInChat(p, msg);
+					display(p, msg);
 					i++;
 					
 					if(i >= message.size()) {
@@ -47,7 +47,7 @@ public class chatAnimation {
 						Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 							@Override
 							public void run() {
-								showInChat(p, "");
+								display(p, "");
 							}
 						}, 20);
 					}

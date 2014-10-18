@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import de.lonzbonz.DevAthlon.main.GameStart;
 import de.lonzbonz.DevAthlon.main.chatAnimation;
 import de.lonzbonz.DevAthlon.main.main;
 import de.lonzbonz.DevAthlon.main.playerItems;
@@ -44,8 +45,10 @@ public class playerJoin implements Listener {
 		playerItems pI = new playerItems();
 		pI.setJoinItems(p);
 		
+		plugin.points.put(p.getName(), 0);
+		
 		chatAnimation cA = new chatAnimation(plugin);
-		cA.showInChat(p, "");
+		cA.display(p, "");
 		
 		Location loc = Bukkit.getWorld(plugin.worldName).getSpawnLocation();
 		loc = loc.add(0, 10, 0);
@@ -72,6 +75,11 @@ public class playerJoin implements Listener {
 			});
 			plugin.joinRun.get(p.getName()).runTaskLater(plugin, 20*3);
 		}
+		
+		if(Bukkit.getOnlinePlayers().length == 2) {
+			GameStart GS = new GameStart(plugin);
+			GS.startGame();
+		}
 	}
 	
 	
@@ -87,7 +95,7 @@ public class playerJoin implements Listener {
 		chatAnimation cA = new chatAnimation(plugin);
 		List<String> list = new ArrayList<>();
 		list.add("§b§lDas Spiel startet bei §c§l" + plugin.minPlayer + " §b§lSpielern!");
-		cA.showInChatWithDelay(p, list, 3);
+		cA.displayWithDelay(p, list, 3);
 
 		
 		

@@ -8,10 +8,7 @@ import de.lonzbonz.DevAthlon.main.main;
 
 public class InventoryClick implements Listener {
 
-	private main plugin;
-	
 	public InventoryClick(main plugin) {
-		this.plugin = plugin;
 	}
 	
 	@EventHandler

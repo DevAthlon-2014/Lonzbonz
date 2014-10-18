@@ -1,6 +1,7 @@
 package de.lonzbonz.DevAthlon.listeners;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -13,7 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import de.lonzbonz.DevAthlon.main.GameState;
 import de.lonzbonz.DevAthlon.main.main;
 
 public class HorseGun implements Listener {
@@ -26,10 +29,15 @@ public class HorseGun implements Listener {
 	
 	//Ressources
 	private List<String> cooldown = new ArrayList<>();
+	private HashMap<String, BukkitRunnable> exp = new HashMap<>();
+	private HashMap<String, Integer> actual = new HashMap<>();
+	int max = 20;
 	
 	@EventHandler
 	public void onShoot(PlayerInteractEvent e) {
 		final Player p = e.getPlayer();
+		
+		if(!(plugin.state == GameState.RUNNING)) return;
 		
 		if(!cooldown.contains(p.getName())) {
 			cooldown.add(p.getName());
@@ -45,6 +53,9 @@ public class HorseGun implements Listener {
 				final Horse horse = (Horse) p.getWorld().spawnEntity(p.getLocation(), EntityType.HORSE);
 				horse.setBaby();
 				horse.setVelocity(p.getLocation().getDirection().multiply(3D));
+				
+				startExp(p);
+
 				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					@Override
@@ -64,5 +75,31 @@ public class HorseGun implements Listener {
 		} else {
 			p.sendMessage(plugin.prefix + "§cLade §6Pferde-Flare §cnach!");
 		}
+	}
+	
+	
+	public void startExp(final Player p) {
+		actual.put(p.getName(), 20);
+		
+		exp.put(p.getName(), new BukkitRunnable() {
+			@Override
+			public void run() {
+				double set = (double) 1/max*actual.get(p.getName());
+				
+				p.setExp((float)set);
+				
+				actual.put(p.getName(), actual.get(p.getName())-1);
+			}
+		});
+		exp.get(p.getName()).runTaskTimer(plugin, 1, 1);
+		
+		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			@Override
+			public void run() {
+				exp.get(p.getName()).cancel();
+				exp.remove(p.getName());
+				p.setExp(0);
+			}
+		}, 20);
 	}
 }

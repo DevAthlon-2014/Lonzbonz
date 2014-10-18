@@ -64,6 +64,7 @@ public class main extends JavaPlugin {
 	
 	public void registerClasses() {
 		new chatAnimation(this);
+		new GameStart(this);
 	}
 	
 	
@@ -76,6 +77,7 @@ public class main extends JavaPlugin {
 	public int minPlayer = 2;
 	public GameState state;
 	public String prefix = "§7[§bDevathlon§7] ";
+	public HashMap<String, Integer> points = new HashMap<>();
 	
 	
 
