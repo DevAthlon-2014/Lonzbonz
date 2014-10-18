@@ -34,7 +34,7 @@ public class playerJoin implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		final Player p = e.getPlayer();
 		
-		p.setGameMode(GameMode.ADVENTURE);
+		p.setGameMode(GameMode.CREATIVE);
 		p.setAllowFlight(false);
 		p.setFlying(false);
 		p.setHealth(20);

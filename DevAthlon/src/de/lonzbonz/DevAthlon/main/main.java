@@ -1,8 +1,11 @@
 package de.lonzbonz.DevAthlon.main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Ghast;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -39,6 +42,7 @@ public class main extends JavaPlugin {
 		state = GameState.WAITING;
 		loadConfig();
 		minPlayer = getConfig().getInt("minPlayers");
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-off");
 		
 		System.out.println("[DevAthlon] Plugin enabled!");
 	}
@@ -67,6 +71,7 @@ public class main extends JavaPlugin {
 	public void registerClasses() {
 		new chatAnimation(this);
 		new GameStart(this);
+		new MobSpawner(this);
 	}
 	
 	public void loadConfig() {
@@ -87,6 +92,7 @@ public class main extends JavaPlugin {
 	public GameState state;
 	public String prefix = "§7[§bDevathlon§7] ";
 	public HashMap<String, Integer> points = new HashMap<>();
+	public List<Ghast> ghasts = new ArrayList<>();
 	
 	
 

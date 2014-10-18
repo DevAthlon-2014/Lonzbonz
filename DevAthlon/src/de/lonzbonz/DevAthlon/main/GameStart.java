@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Player;
 
 public class GameStart {
@@ -29,8 +30,8 @@ public class GameStart {
 			list.add("");
 			list.add("§6§lViel Glück wünscht §a§lLonzbonz");
 			list.add("");
-			list.add("§nAnleitung:§r §eTreffe die fliegenden Hühner mit der §6§lPferde-Flare");
-			list.add("§nAnleitung:§r §eTreffe die fliegenden Hühner mit der §6§lPferde-Flare");
+			list.add("§nAnleitung:§r §eTreffe die fliegenden Ghasts mit der §6§lPferde-Flare");
+			list.add("§nAnleitung:§r §eTreffe die fliegenden Ghasts mit der §6§lPferde-Flare");
 			list.add("");
 			list.add("§nWer gewinnt?:§r §eDer der nach 3 Minuten die meisten Treffer erzielt hat");
 			list.add("§nWer gewinnt?:§r §eDer der nach 3 Minuten die meisten Treffer erzielt hat");
@@ -46,11 +47,34 @@ public class GameStart {
 				@Override
 				public void run() {
 					plugin.state = GameState.RUNNING;
+					MobSpawner MS = new MobSpawner(plugin);
+					MS.startSpawning();
+					startIngameTimer();
 				}
 			}, 20*30);
 			
 			chatAnimation cA = new chatAnimation(plugin);
 			cA.displayWithDelay(players, list, 2);
 		}
+	}
+	
+	
+	public void startIngameTimer() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			@Override
+			public void run() {
+				Bukkit.getScheduler().cancelAllTasks();
+				
+				for(Ghast g : plugin.ghasts) {
+					g.remove();
+				}
+				
+				for(Player players : Bukkit.getOnlinePlayers()) {
+					chatAnimation cA = new chatAnimation(plugin);
+					cA.display(players, plugin.prefix + "§c§lDas Spiel ist vorbei!");
+				}
+				
+			}
+		}, 20*60*3);
 	}
 }

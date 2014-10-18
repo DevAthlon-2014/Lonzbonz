@@ -8,12 +8,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import de.lonzbonz.DevAthlon.main.GameState;
@@ -57,12 +61,30 @@ public class HorseGun implements Listener {
 				startExp(p);
 
 				
+				Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+					@Override
+					public void run() {
+						for(Entity ent : horse.getNearbyEntities(3, 3, 3)) {
+							if(ent.getType() == EntityType.GHAST) {
+								ent.remove();
+								Ghast ghast = (Ghast) ent;
+								plugin.ghasts.remove(ghast);
+								
+								p.sendMessage(plugin.prefix + "§a§l+ 1 Treffer");
+								plugin.points.put(p.getName(), plugin.points.get(p.getName())+1);
+								p.getWorld().playSound(p.getLocation(), Sound.FIREWORK_LARGE_BLAST2, 3, 3);
+								p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20*1, 3));
+							}
+						}
+					}
+				}, 10, 10);
+				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					@Override
 					public void run() {
-						horse.getWorld().createExplosion(horse.getLocation(), 3, false);
+						
 					}
-				}, 20*3);
+				}, 20*4);
 				
 			}
 			
