@@ -21,8 +21,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import de.lonzbonz.DevAthlon.main.GameState;
-import de.lonzbonz.DevAthlon.main.main;
+import de.lonzbonz.DevAthlon.enums.GameState;
+import de.lonzbonz.DevAthlon.main.Main;
 
 public class HorseGun implements Listener {
 
@@ -31,19 +31,18 @@ public class HorseGun implements Listener {
 	 * @date 18.10.2014
 	 */
 
-	private main plugin;
+	private Main plugin;
 	
-	public HorseGun(main plugin) {
+	public HorseGun(Main plugin) {
 		this.plugin = plugin;
 	}
 	
 	//Ressources
 	private List<String> cooldown = new ArrayList<>();
-	private HashMap<String, BukkitRunnable> exp = new HashMap<>();
-	private HashMap<String, Integer> actual = new HashMap<>();
 	private HashMap<Entity, BukkitRunnable> entRun = new HashMap<>();
 	int max = 20;
 	public List<String> zoom = new ArrayList<>();
+	
 	
 	@EventHandler
 	public void onShoot(PlayerInteractEvent e) {
@@ -79,8 +78,6 @@ public class HorseGun implements Listener {
 				final Horse horse = (Horse) p.getWorld().spawnEntity(p.getLocation(), EntityType.HORSE);
 				horse.setBaby();
 				horse.setVelocity(p.getLocation().getDirection().multiply(3D));
-				
-//				startExp(p);
 
 				
 				entRun.put(horse, new BukkitRunnable() {
@@ -133,36 +130,5 @@ public class HorseGun implements Listener {
 				p.sendMessage(plugin.prefix + "§cLade §6Pferde-Flare §cnach!");
 			}
 		}
-	}
-	
-	
-	/**
-	 * UNUSED THIS MOMENT
-	 * @deprecated
-	 * @param p - player to change the exp
-	 */
-	public void startExp(final Player p) {
-		actual.put(p.getName(), 20);
-		
-		exp.put(p.getName(), new BukkitRunnable() {
-			@Override
-			public void run() {
-				double set = (double) 1/max*actual.get(p.getName());
-				
-				p.setExp((float)set);
-				
-				actual.put(p.getName(), actual.get(p.getName())-1);
-			}
-		});
-		exp.get(p.getName()).runTaskTimer(plugin, 1, 1);
-		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-			@Override
-			public void run() {
-				exp.get(p.getName()).cancel();
-				exp.remove(p.getName());
-				p.setExp(0);
-			}
-		}, 20);
 	}
 }

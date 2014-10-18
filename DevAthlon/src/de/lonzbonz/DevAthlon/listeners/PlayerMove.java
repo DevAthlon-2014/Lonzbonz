@@ -15,8 +15,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import de.lonzbonz.DevAthlon.main.chatAnimation;
-import de.lonzbonz.DevAthlon.main.main;
+import de.lonzbonz.DevAthlon.enums.GameState;
+import de.lonzbonz.DevAthlon.main.Main;
+import de.lonzbonz.DevAthlon.others.ChatAnimation;
 
 public class PlayerMove implements Listener {
 
@@ -25,22 +26,23 @@ public class PlayerMove implements Listener {
 	 * @date 18.10.2014
 	 */
 
-	private main plugin;
+	private Main plugin;
 	
-	public PlayerMove(main plugin) {
+	public PlayerMove(Main plugin) {
 		this.plugin = plugin;
 	}
 	
 	//Ressources
 	public List<String> cooldown = new ArrayList<>();
 	
+	
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
 		final Player p = e.getPlayer();
 		
-		if(!p.isInsideVehicle() && !p.hasPotionEffect(PotionEffectType.CONFUSION)) {
-			chatAnimation cA = new chatAnimation(plugin);
-			cA.display(p, "§cSie wurden vergiftet! Steigen sie schnell wieder auf das Schwein!");
+		if(plugin.state == GameState.RUNNING && !p.isInsideVehicle() && !p.hasPotionEffect(PotionEffectType.CONFUSION)) {
+			ChatAnimation cA = new ChatAnimation(plugin);
+			cA.displayWithoutDelay(p, "§cSie wurden vergiftet! Steigen sie schnell wieder auf das Schwein!");
 			p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, 10));
 		}
 		
