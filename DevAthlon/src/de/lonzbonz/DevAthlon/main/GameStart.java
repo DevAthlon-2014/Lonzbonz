@@ -101,6 +101,7 @@ public class GameStart {
 					}
 				}
 				
+				
 				for(Player players : Bukkit.getOnlinePlayers()) {
 					chatAnimation cA = new chatAnimation(plugin);
 					cA.display(players, plugin.prefix + "§c§lDas Spiel ist vorbei!");
