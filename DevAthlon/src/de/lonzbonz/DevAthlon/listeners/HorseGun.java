@@ -48,10 +48,7 @@ public class HorseGun implements Listener {
 	@EventHandler
 	public void onShoot(PlayerInteractEvent e) {
 		final Player p = e.getPlayer();
-		
-		if(!p.isInsideVehicle()) {
-			return;
-		}
+
 		if(!(plugin.state == GameState.RUNNING)) return;
 
 		if(e.getAction() == Action.LEFT_CLICK_AIR | e.getAction() == Action.LEFT_CLICK_BLOCK) {

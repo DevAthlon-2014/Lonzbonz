@@ -31,7 +31,7 @@ public class MobSpawner {
 				
 				Location middle = Bukkit.getWorld(plugin.worldName).getSpawnLocation();
 				
-				Location loc = middle.add(getRandom(25), getRandom(25), getRandom(25));
+				Location loc = middle.add(getRandom(15), getRandom(15), getRandom(15));
 				
 				Ghast ghast = (Ghast) loc.getWorld().spawnEntity(loc, EntityType.GHAST);
 				plugin.ghasts.add(ghast);

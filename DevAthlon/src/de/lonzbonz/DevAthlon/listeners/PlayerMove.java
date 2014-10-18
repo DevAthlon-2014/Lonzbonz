@@ -11,8 +11,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import de.lonzbonz.DevAthlon.main.chatAnimation;
 import de.lonzbonz.DevAthlon.main.main;
 
 public class PlayerMove implements Listener {
@@ -34,6 +37,12 @@ public class PlayerMove implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
 		final Player p = e.getPlayer();
+		
+		if(!p.isInsideVehicle() && !p.hasPotionEffect(PotionEffectType.CONFUSION)) {
+			chatAnimation cA = new chatAnimation(plugin);
+			cA.display(p, "§cSie wurden vergiftet! Steigen sie schnell wieder auf das Schwein!");
+			p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, 10));
+		}
 		
 		Location pLoc = p.getLocation();
 		Location middle = Bukkit.getWorld(plugin.worldName).getSpawnLocation();

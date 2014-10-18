@@ -25,7 +25,7 @@ public class PigLeave implements Listener {
 	public void onPigLeave(PlayerToggleSneakEvent e) {
 		Player p = e.getPlayer();
 		
-		if(!p.isInsideVehicle()) {
+		if(p.isInsideVehicle()) {
 			chatAnimation cA = new chatAnimation(plugin);
 			cA.display(p, "§cSie wurden vergiftet! Steigen sie schnell wieder auf das Schwein!");
 			p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, 3));

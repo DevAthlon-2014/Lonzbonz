@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class GameStart {
@@ -25,6 +27,10 @@ public class GameStart {
 	public GameStart(main plugin) {
 		this.plugin = plugin;
 	}
+	
+	//Ressources
+	String winner;
+	Location loc;
 	
 	/**
 	 * all things to do if the game starts
@@ -108,6 +114,7 @@ public class GameStart {
 					plugin.state = GameState.RESTARTING;
 					players.removePotionEffect(PotionEffectType.SLOW);
 					players.removePotionEffect(PotionEffectType.CONFUSION);
+					players.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 10));
 					players.getInventory().clear();
 					players.getInventory().setHelmet(null);
 					players.getInventory().setChestplate(null);
@@ -115,7 +122,7 @@ public class GameStart {
 					players.getInventory().setBoots(null);
 				}
 				
-				String winner = "";
+				winner = "";
 				int max = 0;
 				for(int i : plugin.points.values()) {
 					if(i > max) {
@@ -145,6 +152,14 @@ public class GameStart {
 					cA.displayWithDelay(players, list, 3);
 				}
 				
+				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+					@SuppressWarnings("deprecation")
+					@Override
+					public void run() {
+						spawnWinnerPrice(Bukkit.getPlayer(winner));
+					}
+				}, 20*6);
+				
 				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					@Override
@@ -173,5 +188,22 @@ public class GameStart {
 				DA.setColoredBoots(player, DA.getRandomColor());
 			}
 		}, 3, 3);
+	}
+	
+	public void spawnWinnerPrice(Player p) {
+		
+		loc = p.getLocation();
+		
+		loc = loc.add(0, 3, 0);
+		
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+			@Override
+			public void run() {
+				loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 3);
+				loc.getWorld().playSound(loc, Sound.LEVEL_UP, 3, 3);
+				loc.getWorld().spawnEntity(loc, EntityType.EXPERIENCE_ORB);
+			}
+		}, 10, 10);
+		
 	}
 }

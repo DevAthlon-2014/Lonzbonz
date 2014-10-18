@@ -45,6 +45,7 @@ public class playerJoin implements Listener {
 		p.setNoDamageTicks(Integer.MAX_VALUE);
 		p.setFireTicks(0);
 		p.removePotionEffect(PotionEffectType.SLOW);
+		p.removePotionEffect(PotionEffectType.CONFUSION);
 		
 		String name = p.getName();
 		if(name.length() > 14) {
