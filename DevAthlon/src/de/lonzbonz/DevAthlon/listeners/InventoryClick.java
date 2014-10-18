@@ -8,6 +8,11 @@ import de.lonzbonz.DevAthlon.main.main;
 
 public class InventoryClick implements Listener {
 
+	/**
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
+
 	public InventoryClick(main plugin) {
 	}
 	

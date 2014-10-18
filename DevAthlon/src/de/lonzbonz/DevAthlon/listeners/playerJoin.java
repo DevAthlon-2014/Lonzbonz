@@ -21,6 +21,11 @@ import de.lonzbonz.DevAthlon.main.playerItems;
 import de.lonzbonz.DevAthlon.main.randomGetter;
 
 public class playerJoin implements Listener {
+
+	/**
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
 	
 	private main plugin;
 	
@@ -82,7 +87,12 @@ public class playerJoin implements Listener {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * Shows a little join show
+	 * 
+	 * @param p - the player to show the show
+	 */
 	private void startJoinShow(Player p) {
 		if(p == null) return;
 		

@@ -9,12 +9,20 @@ import org.bukkit.entity.Player;
 
 public class GameStart {
 
+	/**
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
+
 	private main plugin;
 	
 	public GameStart(main plugin) {
 		this.plugin = plugin;
 	}
 	
+	/**
+	 * all things to do if the game starts
+	 */
 	public void startGame() {
 
 		for(Player players : Bukkit.getOnlinePlayers()) {
@@ -42,23 +50,27 @@ public class GameStart {
 			list.add("             §4§lGo!");
 			list.add("");
 			
-			
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				@Override
-				public void run() {
-					plugin.state = GameState.RUNNING;
-					MobSpawner MS = new MobSpawner(plugin);
-					MS.startSpawning();
-					startIngameTimer();
-				}
-			}, 20*30);
-			
 			chatAnimation cA = new chatAnimation(plugin);
 			cA.displayWithDelay(players, list, 2);
 		}
+		
+		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			@Override
+			public void run() {
+				plugin.state = GameState.RUNNING;
+				MobSpawner MS = new MobSpawner(plugin);
+				MS.startSpawning();
+				startIngameTimer();
+			}
+		}, 20*30);
+		
 	}
 	
-	
+	/**
+	 * 
+	 * starts the ingame timer to finish the game
+	 * 
+	 */
 	public void startIngameTimer() {
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			@Override

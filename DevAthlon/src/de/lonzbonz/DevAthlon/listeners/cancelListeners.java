@@ -13,6 +13,11 @@ import de.lonzbonz.DevAthlon.main.main;
 
 public class cancelListeners implements Listener {
 
+	/**
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
+
 	public cancelListeners(main plugin) {
 	}
 	

@@ -25,6 +25,11 @@ import de.lonzbonz.DevAthlon.main.main;
 
 public class HorseGun implements Listener {
 
+	/**
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
+
 	private main plugin;
 	
 	public HorseGun(main plugin) {
@@ -58,13 +63,13 @@ public class HorseGun implements Listener {
 				horse.setBaby();
 				horse.setVelocity(p.getLocation().getDirection().multiply(3D));
 				
-				startExp(p);
+//				startExp(p);
 
 				
 				Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 					@Override
 					public void run() {
-						for(Entity ent : horse.getNearbyEntities(3, 3, 3)) {
+						for(Entity ent : horse.getNearbyEntities(2, 2, 2)) {
 							if(ent.getType() == EntityType.GHAST) {
 								
 								Ghast ghast = (Ghast) ent;
@@ -91,20 +96,25 @@ public class HorseGun implements Listener {
 					}
 				}, 20*4);
 				
+				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+					@Override
+					public void run() {
+						cooldown.remove(p.getName());
+					}
+				}, 20);
+				
 			} else {
 				p.sendMessage(plugin.prefix + "§cLade §6Pferde-Flare §cnach!");
 			}
-			
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				@Override
-				public void run() {
-					cooldown.remove(p.getName());
-				}
-			}, 20);
 		}
 	}
 	
 	
+	/**
+	 * UNUSED THIS MOMENT
+	 * @deprecated
+	 * @param p - player to change the exp
+	 */
 	public void startExp(final Player p) {
 		actual.put(p.getName(), 20);
 		

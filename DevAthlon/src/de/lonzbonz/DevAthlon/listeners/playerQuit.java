@@ -12,6 +12,11 @@ import de.lonzbonz.DevAthlon.main.main;
 import de.lonzbonz.DevAthlon.main.randomGetter;
 
 public class playerQuit implements Listener {
+
+	/**
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
 	
 	private main plugin;
 	

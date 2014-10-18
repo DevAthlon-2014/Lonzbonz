@@ -22,6 +22,8 @@ import de.lonzbonz.DevAthlon.listeners.playerQuit;
 public class main extends JavaPlugin {
 	
 	/**
+	 * 
+	 * @author Lonzbonz
 	 * plugin created on 18.10.2014
 	 * 
 	 */

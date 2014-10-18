@@ -8,6 +8,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class chatAnimation {
+
+	/**
+	 * @author Lonzbonz
+	 * @date 18.10.2014
+	 */
 	
 	private main plugin;
 	
@@ -18,6 +23,11 @@ public class chatAnimation {
 	//Ressources
 	int i;
 	
+	/**
+	 * 
+	 * @param p - the player who should be display to
+	 * @param message - the message to display
+	 */
 	public void display(Player p, String message) {
 		
 		p.sendMessage("");
@@ -34,6 +44,12 @@ public class chatAnimation {
 		p.playSound(p.getLocation(), Sound.BURP, 3, 3);
 	}
 	
+	/**
+	 * 
+	 * @param p - the player who should be display to
+	 * @param message - the message to display
+	 * @param delayinSec - the delay between the messages
+	 */
 	public void displayWithDelay(final Player p, final List<String> message, int delayinSec) {
 		i = 0;
 		if(!plugin.chatRun.containsKey(p.getName())) {
