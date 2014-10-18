@@ -173,7 +173,7 @@ public class GameStart {
 				
 				
 			}
-		}, 20*60*1);
+		}, 20*60*3);
 	}
 	
 	public void startDiscoArmor(final Player player, final Pig p) {
