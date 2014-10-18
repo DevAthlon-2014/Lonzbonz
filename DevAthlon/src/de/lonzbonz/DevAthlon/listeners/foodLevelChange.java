@@ -9,10 +9,7 @@ import de.lonzbonz.DevAthlon.main.main;
 
 public class foodLevelChange implements Listener {
 
-	private main plugin;
-	
 	public foodLevelChange(main plugin) {
-		this.plugin = plugin;
 	}
 	
 	@EventHandler
