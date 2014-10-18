@@ -37,6 +37,8 @@ public class main extends JavaPlugin {
 			System.err.println("[Devathlon] '" + wM.getWorld() + "' world couldn't generate!");
 		}
 		state = GameState.WAITING;
+		loadConfig();
+		minPlayer = getConfig().getInt("minPlayers");
 		
 		System.out.println("[DevAthlon] Plugin enabled!");
 	}
@@ -67,6 +69,13 @@ public class main extends JavaPlugin {
 		new GameStart(this);
 	}
 	
+	public void loadConfig() {
+		
+		getConfig().options().copyDefaults(true);
+		getConfig().addDefault("minPlayers", 2);
+		saveConfig();
+	}
+	
 	
 	
 	
@@ -74,7 +83,7 @@ public class main extends JavaPlugin {
 	public HashMap<String, BukkitRunnable> joinRun = new HashMap<>();
 	public HashMap<String, BukkitRunnable> chatRun = new HashMap<>();
 	public String worldName = "Devathlon";
-	public int minPlayer = 2;
+	public int minPlayer = 0;
 	public GameState state;
 	public String prefix = "§7[§bDevathlon§7] ";
 	public HashMap<String, Integer> points = new HashMap<>();

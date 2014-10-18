@@ -3,6 +3,7 @@ package de.lonzbonz.DevAthlon.main;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -29,6 +30,8 @@ public class chatAnimation {
 		p.sendMessage("");
 		p.sendMessage("");
 		p.sendMessage("");
+		
+		p.playSound(p.getLocation(), Sound.BURP, 3, 3);
 	}
 	
 	public void displayWithDelay(final Player p, final List<String> message, int delayinSec) {
