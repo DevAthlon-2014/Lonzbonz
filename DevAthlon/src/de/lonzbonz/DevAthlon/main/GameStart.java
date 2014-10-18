@@ -26,11 +26,6 @@ public class GameStart {
 	public void startGame() {
 
 		for(Player players : Bukkit.getOnlinePlayers()) {
-
-			if(plugin.joinRun.containsKey(players.getName())) {
-				plugin.joinRun.get(players.getName()).cancel();
-				plugin.joinRun.clear();
-			}
 			
 			List<String> list = new ArrayList<>();
 			list.add("§c§lEs sind nun §b§l" + plugin.minPlayer + " §c§lSpieler online");
@@ -106,9 +101,12 @@ public class GameStart {
 					list.add("");
 					list.add("§6§lJetzt wird's spannend!");
 					list.add("§b§lGewonnen hat...");
+					
 					randomGetter rG = new randomGetter();
-					list.add("        " + rG.setStringToRandomColor(winner));
+					list.add("        " + rG.setStringToRandomColor(winner) + " §rmit §e" + max + " §rTreffern");
 					list.add("§a§lGlückwunsch! <3");
+					list.add("");
+					list.add("§4§lServer startet neu!");
 					
 					cA.displayWithDelay(players, list, 3);
 				}
@@ -123,6 +121,6 @@ public class GameStart {
 				
 				
 			}
-		}, 20*60*3);
+		}, 20*60*1);
 	}
 }

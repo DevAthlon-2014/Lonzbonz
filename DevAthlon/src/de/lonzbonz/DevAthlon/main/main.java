@@ -87,7 +87,6 @@ public class main extends JavaPlugin {
 	
 	
 	//Ressources
-	public HashMap<String, BukkitRunnable> joinRun = new HashMap<>();
 	public HashMap<String, BukkitRunnable> chatRun = new HashMap<>();
 	public String worldName = "Devathlon";
 	public int minPlayer = 0;

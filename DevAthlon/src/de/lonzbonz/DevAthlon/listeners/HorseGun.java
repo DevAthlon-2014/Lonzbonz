@@ -40,6 +40,7 @@ public class HorseGun implements Listener {
 	private List<String> cooldown = new ArrayList<>();
 	private HashMap<String, BukkitRunnable> exp = new HashMap<>();
 	private HashMap<String, Integer> actual = new HashMap<>();
+	private HashMap<Entity, BukkitRunnable> entRun = new HashMap<>();
 	int max = 20;
 	
 	@EventHandler
@@ -66,9 +67,14 @@ public class HorseGun implements Listener {
 //				startExp(p);
 
 				
-				Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+				entRun.put(horse, new BukkitRunnable() {
 					@Override
 					public void run() {
+						
+						for(int i = 0; i < 30; i++) {
+							horse.getWorld().playEffect(horse.getLocation(), Effect.SMOKE, 3);
+						}
+						
 						for(Entity ent : horse.getNearbyEntities(2, 2, 2)) {
 							if(ent.getType() == EntityType.GHAST) {
 								
@@ -82,15 +88,23 @@ public class HorseGun implements Listener {
 								p.getWorld().playSound(p.getLocation(), Sound.FIREWORK_LARGE_BLAST2, 3, 3);
 								p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20*1, 3));
 								
+								entRun.get(horse).cancel();
+								entRun.remove(horse);
+								
 							}
 						}
 					}
-				}, 10, 10);
+				});
+				entRun.get(horse).runTaskTimer(plugin, 10, 10);
 				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					@Override
 					public void run() {
 						if(horse != null) {
+							if(entRun.containsKey(horse)) {
+								entRun.get(horse).cancel();
+								entRun.remove(horse);
+							}
 							horse.remove();
 						}
 					}

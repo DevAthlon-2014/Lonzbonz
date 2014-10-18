@@ -32,11 +32,6 @@ public class playerQuit implements Listener {
 		randomGetter rG = new randomGetter();
 		e.setQuitMessage(rG.setStringToRandomColor(p.getName()) + "§r §ehat den Server verlassen");
 		
-		if(plugin.joinRun.containsKey(p.getName())) {
-			plugin.joinRun.get(p.getName()).cancel();
-			plugin.joinRun.remove(p.getName());
-		}
-		
 		if(plugin.chatRun.containsKey(p.getName())) {
 			plugin.chatRun.get(p.getName()).cancel();
 			plugin.chatRun.remove(p.getName());

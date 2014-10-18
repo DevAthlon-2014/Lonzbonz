@@ -10,15 +10,7 @@ import de.lonzbonz.DevAthlon.main.randomGetter;
 
 public class chatListener implements Listener {
 
-	/**
-	 * @author Lonzbonz
-	 * @date 18.10.2014
-	 */
-
-	private main plugin;
-	
 	public chatListener(main plugin) {
-		this.plugin = plugin;
 	}
 	
 	@EventHandler
