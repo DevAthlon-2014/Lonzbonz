@@ -45,7 +45,7 @@ public class cancelListeners implements Listener {
 	
 	@EventHandler
 	public void onPlayerDamage(EntityDamageEvent e) {
-		if(e.getEntity() instanceof Player) {
+		if(e.getEntity() instanceof Player | e.getEntity() instanceof Pig) {
 			e.setCancelled(true);
 		}
 	}

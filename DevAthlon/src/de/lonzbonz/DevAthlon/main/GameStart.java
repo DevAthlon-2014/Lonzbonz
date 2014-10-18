@@ -73,6 +73,7 @@ public class GameStart {
 					p.setCustomName(rG.setStringToRandomColor("Hansi"));
 					p.setCustomNameVisible(true);
 					p.setPassenger(players);
+					startDiscoArmor(players, p);
 				}
 			}
 		}, 20*30);
@@ -105,6 +106,12 @@ public class GameStart {
 					cA.display(players, plugin.prefix + "§c§lDas Spiel ist vorbei!");
 					plugin.state = GameState.RESTARTING;
 					players.removePotionEffect(PotionEffectType.SLOW);
+					players.removePotionEffect(PotionEffectType.CONFUSION);
+					players.getInventory().clear();
+					players.getInventory().setHelmet(null);
+					players.getInventory().setChestplate(null);
+					players.getInventory().setLeggings(null);
+					players.getInventory().setBoots(null);
 				}
 				
 				String winner = "";
@@ -148,5 +155,22 @@ public class GameStart {
 				
 			}
 		}, 20*60*1);
+	}
+	
+	public void startDiscoArmor(final Player player, final Pig p) {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+			@Override
+			public void run() {
+				
+				DiscoArmor DA = new DiscoArmor();
+				DA.setColoredHelmet(player, DA.getRandomColor());
+				
+				DA.setColoredChestplate(player, DA.getRandomColor());
+
+				DA.setColoredLeggings(player, DA.getRandomColor());
+
+				DA.setColoredBoots(player, DA.getRandomColor());
+			}
+		}, 3, 3);
 	}
 }

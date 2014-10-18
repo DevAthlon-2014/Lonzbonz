@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import de.lonzbonz.DevAthlon.listeners.HorseGun;
 import de.lonzbonz.DevAthlon.listeners.InventoryClick;
+import de.lonzbonz.DevAthlon.listeners.PigLeave;
 import de.lonzbonz.DevAthlon.listeners.PlayerMove;
 import de.lonzbonz.DevAthlon.listeners.cancelListeners;
 import de.lonzbonz.DevAthlon.listeners.chatListener;
@@ -64,6 +65,7 @@ public class main extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new HorseGun(this), this);
 		this.getServer().getPluginManager().registerEvents(new cancelListeners(this), this);
 		this.getServer().getPluginManager().registerEvents(new chatListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new PigLeave(this), this);
 	}
 	
 	public void registerCommands() {

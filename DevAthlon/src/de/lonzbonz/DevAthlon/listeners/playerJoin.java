@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffectType;
 
 import de.lonzbonz.DevAthlon.main.GameStart;
 import de.lonzbonz.DevAthlon.main.chatAnimation;
@@ -43,6 +44,7 @@ public class playerJoin implements Listener {
 		p.setFoodLevel(20);
 		p.setNoDamageTicks(Integer.MAX_VALUE);
 		p.setFireTicks(0);
+		p.removePotionEffect(PotionEffectType.SLOW);
 		
 		String name = p.getName();
 		if(name.length() > 14) {
