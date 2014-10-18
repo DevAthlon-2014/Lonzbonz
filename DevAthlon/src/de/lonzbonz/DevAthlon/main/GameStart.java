@@ -121,6 +121,7 @@ public class GameStart {
 					}
 				}, 20*20);
 				
+				
 			}
 		}, 20*60*3);
 	}
