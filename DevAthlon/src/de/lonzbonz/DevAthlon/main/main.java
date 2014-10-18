@@ -23,7 +23,8 @@ public class main extends JavaPlugin {
 		registerCommands();
 		registerClasses();
 		
-		worldManager wM = new worldManager(worldName);
+		worldManager wM = new worldManager(worldName, this);
+		wM.startGoodWeather();
 		boolean success = wM.generateWorld();
 		if(success) {
 			System.out.println("[Devathlon] '" + wM.getWorld() + "' world generated!");
@@ -37,6 +38,7 @@ public class main extends JavaPlugin {
 	
 	public void onDisable() {
 		Bukkit.unloadWorld(worldName, true);
+		Bukkit.getScheduler().cancelAllTasks();
 	}
 	
 	public void registerEvents() {

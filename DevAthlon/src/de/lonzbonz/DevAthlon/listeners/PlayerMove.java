@@ -54,9 +54,10 @@ public class PlayerMove implements Listener {
 		p.setVelocity(vector);
 		
 		if(!cooldown.contains(p.getName())) {
-			p.sendMessage(plugin.prefix + "§5Du hast das §eEnde der Arena §5erreicht!");
+			p.sendMessage(plugin.prefix + "§eDu hast §adas Ende der Arena §eerreicht!");
 			p.getWorld().playEffect(p.getLocation(), Effect.GHAST_SHRIEK, 3, 1);
 			p.getWorld().playSound(p.getLocation(), Sound.ANVIL_BREAK, 1, 3);
+			p.getWorld().playEffect(p.getLocation(), Effect.POTION_BREAK, 3);
 			cooldown.add(p.getName());
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				@SuppressWarnings("unused")

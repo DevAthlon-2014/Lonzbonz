@@ -15,7 +15,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import de.lonzbonz.DevAthlon.main.chatAnimation;
+import de.lonzbonz.DevAthlon.main.fireworkManager;
 import de.lonzbonz.DevAthlon.main.main;
+import de.lonzbonz.DevAthlon.main.randomGetter;
 
 public class playerJoin implements Listener {
 	
@@ -38,12 +40,24 @@ public class playerJoin implements Listener {
 		p.setFoodLevel(20);
 		p.setNoDamageTicks(Integer.MAX_VALUE);
 		p.setFireTicks(0);
+		
 		chatAnimation cA = new chatAnimation(plugin);
 		cA.showInChat(p, "");
+		
 		Location loc = Bukkit.getWorld(plugin.worldName).getSpawnLocation();
 		loc = loc.add(0, 10, 0);
 		p.teleport(loc);
-		e.setJoinMessage("§e§n" + p.getName() + "§r §ehat den Server betreten");
+		
+		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			@Override
+			public void run() {
+				fireworkManager fM = new fireworkManager();
+				fM.startJoinFirework(p);
+			}
+		}, 20);
+		
+		randomGetter rG = new randomGetter();
+		e.setJoinMessage(rG.setStringToRandomColor(p.getName()) + "§r §ehat den Server betreten");
 		
 		if(!plugin.joinRun.containsKey(p.getName())) {
 			plugin.joinRun.put(p.getName(), new BukkitRunnable() {
@@ -67,11 +81,8 @@ public class playerJoin implements Listener {
 		
 		chatAnimation cA = new chatAnimation(plugin);
 		List<String> list = new ArrayList<>();
-		list.add("§3§lLasset");
-		list.add("§4§ldie");
-		list.add("§5§lSpiele");
-		list.add("§2§lbeginnen!");
-		cA.showInChatWithDelay(p, list, 1);
+		list.add("§b§lDas Spiel startet bei §c§l" + plugin.minPlayer + " §b§lSpielern!");
+		cA.showInChatWithDelay(p, list, 3);
 
 		
 		
